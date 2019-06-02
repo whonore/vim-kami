@@ -8,7 +8,7 @@ if !exists("b:current_syntax") || b:current_syntax != "coq"
 endif
 
 syn cluster kamiTerm    contains=kamiReg,kamiRule,kamiMethod
-syn cluster kamiExpr    contains=kamiType,kamiArray,kamiStruct,kamiSpecial,kamiLet,kamiRead,kamiWrite,kamiCall,kamiReturn,kamiIf,kamiNondet,kamiSys,kamiConcat
+syn cluster kamiExpr    contains=kamiType,kamiArray,kamiStruct,kamiSpecial,kamiLet,kamiRead,kamiWrite,kamiCall,kamiReturn,kamiReturnv,kamiIf,kamiNondet,kamiSys,kamiConcat
 syn cluster coqTerm     add=kamiModule,@kamiExpr
 
 syn keyword kamiSpecial contained Default Void
@@ -32,7 +32,8 @@ syn region kamiRule     contained contains=kamiStrIdent,kamiRuleBody matchgroup=
 syn region kamiRuleBody contained contains=@kamiExpr matchgroup=kamiPunc start=":=" end="\<with\>" end="}"
 
 " Methods
-syn region kamiMethod     contained contains=kamiStrIdent,kamiCallArg,kamiMethodBody matchgroup=kamiKwd start="\<Method\>" matchgroup=kamiPunc end="\<with\>" end="}"me=e-1 keepend extend
+syn region kamiMethod     contained contains=kamiStrIdent,kamiCallArg,kamiMethodType,kamiMethodBody matchgroup=kamiKwd start="\<Method\>" matchgroup=kamiPunc end="\<with\>" end="}"me=e-1 keepend extend
+syn region kamiMethodType contained contains=@coqTerm matchgroup=kamiPunc start=":" end=":="me=e-2
 syn region kamiMethodBody contained contains=@kamiExpr matchgroup=kamiPunc start=":=" end="\<with\>" end="}"
 
 " Types
@@ -75,7 +76,7 @@ syn region kamiCallArg  contained contains=@coqTerm matchgroup=kamiPunc start="(
 
 " Return
 syn region kamiReturn   contained contains=@coqTerm matchgroup=kamiExpr start="\<RetE\?\>" matchgroup=kamiPunc end=";" end="\<with\>" end="}" keepend
-syn keyword kamiReturn  contained Retv
+syn keyword kamiReturnv contained Retv
 
 " If
 syn region kamiIf       contained contains=@coqTerm,kamiIfBind matchgroup=kamiExpr start="\<I[fF]E\?\>" matchgroup=kamiPunc end=";" end="\<with\>" end="}" keepend
@@ -102,6 +103,6 @@ hi link kamiKwd         Keyword
 hi link kamiType        Type
 
 hi link kamiExpr        coqKwd
-hi link kamiReturn      kamiExpr
+hi link kamiReturnv     kamiExpr
 
 let b:current_syntax = "coq-kami"
