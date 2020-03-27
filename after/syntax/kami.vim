@@ -3,7 +3,7 @@
 " Author: Wolf Honore
 
 " Require Coq syntax to be loaded already
-if !exists("b:current_syntax") || b:current_syntax != "coq"
+if !exists('b:current_syntax') || b:current_syntax !=# 'coq'
   finish
 endif
 
@@ -105,4 +105,4 @@ hi link kamiType        Type
 hi link kamiExpr        coqKwd
 hi link kamiReturnv     kamiExpr
 
-let b:current_syntax = "coq-kami"
+let b:current_syntax = 'coq-kami'
