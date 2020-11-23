@@ -3,16 +3,15 @@ function! s:checkKami() abort
   let l:kwds = ['ARRAY', 'STRUCT', 'MODULE', 'Register', 'Rule', 'Method']
   let l:pat = printf('\(%s\)', join(l:kwds, '\|'))
 
-  if &filetype !=# 'coq'
-    return
-  endif
-
-  for l:lnum in range(1, l:maxlines)
-    if getline(l:lnum) =~# l:pat
-      set filetype=coq.kami
-      break
+  for l:vars in [b:, g:]
+    if get(l:vars, 'coq_kami_disable', 0)
+      return
     endif
   endfor
+
+  if join(getline(1, l:maxlines), ' ') =~# l:pat
+    setlocal filetype=coq.kami
+  endif
 endfunction
 
 au BufRead,BufNewFile *.v call s:checkKami()
