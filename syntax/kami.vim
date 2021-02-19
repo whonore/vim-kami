@@ -7,8 +7,6 @@ if !exists('b:current_syntax') || b:current_syntax !=# 'coq'
   finish
 endif
 
-echo 'heresyn'
-
 syn cluster kamiTerm    contains=kamiReg,kamiRule,kamiMethod
 syn cluster kamiExpr    contains=kamiType,kamiArray,kamiStruct,kamiSpecial,kamiLet,kamiRead,kamiWrite,kamiCall,kamiReturn,kamiReturnv,kamiIf,kamiNondet,kamiSys,kamiConcat
 syn cluster coqTerm     add=kamiModule,@kamiExpr
